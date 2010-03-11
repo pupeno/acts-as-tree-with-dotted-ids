@@ -151,7 +151,13 @@ class TreeTest < Test::Unit::TestCase
     assert_equal [@root_child1, @root_child2], @root_child2.self_and_siblings
     assert_equal [@root1, @root2, @root3], @root2.self_and_siblings
     assert_equal [@root1, @root2, @root3], @root3.self_and_siblings
-  end           
+  end
+  
+  def test_rebuild_dotted_ids
+    assert TreeMixin.all.map {|n| n.dotted_ids != nil}.all?
+    TreeMixin.rebuild_dotted_ids!
+    assert TreeMixin.all.map {|n| n.dotted_ids != nil}.all?
+  end
 end
 
 class TreeTestWithEagerLoading < Test::Unit::TestCase
